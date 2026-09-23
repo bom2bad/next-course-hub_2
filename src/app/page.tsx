@@ -2,7 +2,7 @@ export default function HomePage() {
   const siteName: string = "Student Course Hub";
   const courseCount: number = 3;
   const isOpen: boolean = true;
-  const topics: string[] = ["HTML", "CSS", "TypeScript", "Next.js"];
+  const topics: string[] = ["โครงสร้างข้อมูล", "วิศวกรรมซอฟต์แวร์", "เว็บเทคโนโลยี"];
 
   
 
