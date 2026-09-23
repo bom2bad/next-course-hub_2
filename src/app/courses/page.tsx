@@ -1,6 +1,6 @@
 //"use client";
 //import CoursesCard from "@/components/CourseCard";
-import { courses } from "@/data/corsedata";
+import { courses } from "@/data/coursedata";
 import CourseExplorer from "@/components/CourseExplorer";
 import type { Metadata } from "next";
 
@@ -12,7 +12,7 @@ export default function CoursesPage() {
   return (
     <>
 
-      < CourseExplorer courses={courses} /><br/>
+      <CourseExplorer initialCourses={courses} />
       
 
       {/*<div className="p-4">

@@ -1,39 +1,59 @@
 import type { Course } from "@/types/course";
+import Link from "next/link";
 
 type CourseCardProps = {
   course: Course;
   isFavorite: boolean;
-  onToggleFavorite: (id: number) => void;
+  onToggleFavorite: (id: string) => void;
+  onEdit: () => void;
+  onDelete: () => void;
 };
-
 
 export default function CourseCard({
   course,
   isFavorite,
   onToggleFavorite,
+  onEdit,
+  onDelete,
 }: CourseCardProps) {
   return (
     <article className="courseCard">
-      <h2>{course.title}</h2>
+      <h2><Link href={`/courses/${course.id}`}>รายละเอียดเพิ่มเติม</Link></h2>
 
       <p>รหัสวิชา: {course.code}</p>
 
-      <p>{course.credits} หน่วยกิต</p>
+      <p>{course.credit} หน่วยกิต</p>
 
-      <p className={course.isOpen ? "open" : "closed"}>
-        {course.isOpen
-          ? "เปิดลงทะเบียน"
-          : "ปิดลงทะเบียน"}
+      <p>ผู้สอน: {course.instructor}</p>
+
+      <p>
+        <button
+          type="button"
+          className="favoriteButton"
+          aria-pressed={isFavorite}
+          onClick={() => onToggleFavorite(course.id)}
+        >
+          {isFavorite
+            ? "♥ อยู่ในรายการโปรด"
+            : "♡ เพิ่มเป็นรายการโปรด"}
+        </button>
       </p>
-<p>
-<button 
-  type="button"
-  className="favoriteButton"
-  aria-pressed={isFavorite}
-  onClick={() => onToggleFavorite(course.id)}>
-  {isFavorite ? "♥ อยู่ในรายการโปรด" : "♡ เพิ่มเป็นรายการโปรด"}
-</button>
-</p>
+
+      <div className="courseActions">
+        <button
+          type="button"
+          onClick={onEdit}
+        >
+          แก้ไข
+        </button>
+
+        <button
+          type="button"
+          onClick={onDelete}
+        >
+          ลบ
+        </button>
+      </div>
     </article>
   );
 }

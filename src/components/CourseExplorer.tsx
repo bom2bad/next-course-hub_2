@@ -3,7 +3,7 @@
 import { useState, type ChangeEvent } from "react";
 import type { Course } from "@/types/course";
 import CourseCard from "./CourseCard";
-import { CourseDraft } from "./CourseForm";
+import CourseForm, { type CourseDraft } from "./CourseForm";
 
 type CourseExplorerProps = {
   initialCourses: Course[];
@@ -13,7 +13,7 @@ export default function CourseExplorer({
   initialCourses,
 }: CourseExplorerProps) {
   const [keyword, setKeyword] = useState("");
-  const [favoriteIds, setFavoriteIds] = useState<number[]>([]);
+  const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [courses, setCourses] = useState<Course[]>(initialCourses);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -23,7 +23,6 @@ export default function CourseExplorer({
   }
 
   function handleCreate(draft: CourseDraft) {
-    // เติม: เมธอดที่สร้างรหัสสุ่มไม่ซ้ำกันในรูปแบบ UUID
     const newCourse: Course = {
       id: crypto.randomUUID(),
       code: draft.code.trim(),
@@ -36,8 +35,11 @@ export default function CourseExplorer({
   }
 
   function handleDelete(id: string) {
-    // เติม: เมธอดของ Array ที่คืนเฉพาะสมาชิกที่ผ่านเงื่อนไข
     setCourses(courses.filter((course) => course.id !== id));
+
+    if (editingId === id) {
+      setEditingId(null);
+    }
   }
 
   function handleUpdate(id: string, draft: CourseDraft) {
@@ -67,9 +69,11 @@ export default function CourseExplorer({
     handleUpdate(editingId, draft);
   }
 
-  const editingCourse = courses.find((course) => course.id === editingId);
+  const editingCourse = courses.find(
+    (course) => course.id === editingId,
+  );
 
-  function handleToggleFavorite(id: number) {
+  function handleToggleFavorite(id: string) {
     setFavoriteIds((prevIds) =>
       prevIds.includes(id)
         ? prevIds.filter((favoriteId) => favoriteId !== id)
@@ -85,15 +89,24 @@ export default function CourseExplorer({
 
   const visibleCourses = courses.filter((course) => {
     const matchesSearch =
-      course.title.toLowerCase().includes(searchText) ||
-      course.code.includes(searchText);
+      course.name.toLowerCase().includes(searchText) ||
+      course.code.toLowerCase().includes(searchText);
+
     const matchesFavorite =
       !showFavoritesOnly || favoriteIds.includes(course.id);
+
     return matchesSearch && matchesFavorite;
   });
 
   return (
     <div className="courseExplorer">
+      <CourseForm
+        key={editingId ?? "new"}
+        initialCourse={editingCourse}
+        onSave={handleSave}
+        onCancel={() => setEditingId(null)}
+      />
+
       <div className="searchBox">
         <input
           type="search"
@@ -102,19 +115,25 @@ export default function CourseExplorer({
           onChange={handleKeywordChange}
           placeholder="ค้นหาชื่อวิชาหรือรหัสวิชา"
         />
+
         <button
           type="button"
           className="favoriteFilterButton"
           aria-pressed={showFavoritesOnly}
           onClick={handleToggleShowFavorites}
         >
-          {showFavoritesOnly ? "แสดงทั้งหมด" : "แสดงเฉพาะรายการโปรด"}
+          {showFavoritesOnly
+            ? "แสดงทั้งหมด"
+            : "แสดงเฉพาะรายการโปรด"}
         </button>
+
         <p>รายการโปรด: {favoriteIds.length} รายการ</p>
       </div>
 
       {visibleCourses.length === 0 ? (
-        <p className="noCourse">ไม่พบรายวิชาที่ตรงกับเงื่อนไข</p>
+        <p className="noCourse">
+          ไม่พบรายวิชาที่ตรงกับเงื่อนไข
+        </p>
       ) : (
         <section className="courseGrid">
           {visibleCourses.map((course) => (
@@ -123,6 +142,8 @@ export default function CourseExplorer({
               course={course}
               isFavorite={favoriteIds.includes(course.id)}
               onToggleFavorite={handleToggleFavorite}
+              onEdit={() => setEditingId(course.id)}
+              onDelete={() => handleDelete(course.id)}
             />
           ))}
         </section>

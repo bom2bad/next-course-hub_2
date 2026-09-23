@@ -1,6 +1,9 @@
-import CourseForm from "@/components/CourseForm";
-export default function testPage() {
-    return (
-        <CourseForm />
-    );
+import CourseExplorer from "@/components/CourseExplorer";
+
+export default function TestPage() {
+  return (
+    <div className="page">
+      <CourseExplorer initialCourses={[]} />
+    </div>
+  );
 }

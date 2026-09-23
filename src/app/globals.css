@@ -344,3 +344,324 @@ nav a:hover {
   background: #dcfce7;
   color: #166534;
 }
+/* =========================
+   Course Form
+========================= */
+
+.courseExplorer form {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  padding: 1.5rem;
+
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 0.7rem 1rem;
+
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.courseExplorer form label {
+  align-self: center;
+
+  color: #14532d;
+  font-weight: 600;
+}
+
+.courseExplorer form input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+
+  background: white;
+  color: #1f2937;
+
+  font-size: 1rem;
+  outline: none;
+
+  transition: 0.2s;
+}
+
+.courseExplorer form input:focus {
+  border-color: #14532d;
+  box-shadow: 0 0 0 3px rgba(20, 83, 45, 0.12);
+}
+
+/* ช่องที่กรอกผิด */
+.courseExplorer form input[aria-invalid="true"] {
+  border: 2px solid #dc2626;
+  background: #fff7f7;
+}
+
+/* ข้อความแจ้งเตือน */
+.courseExplorer form p[id$="-error"] {
+  grid-column: 2;
+
+  margin: -0.3rem 0 0.3rem;
+
+  color: #dc2626;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* =========================
+   Form Buttons
+========================= */
+
+.courseExplorer form button {
+  padding: 0.65rem 1.2rem;
+
+  border: none;
+  border-radius: 8px;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* ปุ่มบันทึก */
+.courseExplorer form button[type="submit"] {
+  grid-column: 2;
+
+  justify-self: start;
+
+  background: #14532d;
+  color: white;
+}
+
+.courseExplorer form button[type="submit"]:hover {
+  background: #166534;
+  transform: translateY(-2px);
+}
+
+/* ปุ่มยกเลิก */
+.courseExplorer form button[type="button"] {
+  grid-column: 2;
+
+  justify-self: start;
+
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.courseExplorer form button[type="button"]:hover {
+  background: #cbd5e1;
+  transform: translateY(-2px);
+}
+
+
+/* =========================
+   Course Actions
+========================= */
+
+.courseActions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.courseActions button {
+  padding: 0.5rem 0.9rem;
+
+  border: none;
+  border-radius: 8px;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.courseActions button:first-child {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.courseActions button:first-child:hover {
+  background: #bfdbfe;
+}
+
+.courseActions button:last-child {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.courseActions button:last-child:hover {
+  background: #fecaca;
+}
+
+
+/* =========================
+   Form Mobile
+========================= */
+
+@media (max-width: 600px) {
+  .courseExplorer form {
+    grid-template-columns: 1fr;
+    padding: 1.2rem;
+  }
+
+  .courseExplorer form label {
+    margin-top: 0.4rem;
+  }
+
+  .courseExplorer form p[id$="-error"] {
+    grid-column: 1;
+  }
+
+  .courseExplorer form button[type="submit"],
+  .courseExplorer form button[type="button"] {
+    grid-column: 1;
+    width: 100%;
+  }
+}
+/* =========================
+   GAME BACKLOG
+========================= */
+
+.gameExplorer {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.gameExplorer > h1 {
+  margin-bottom: 25px;
+}
+
+.gameForm {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 16px;
+  border: 1px solid #dbe2ea;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  margin-bottom: 30px;
+}
+
+.gameForm .formGroup {
+  margin-bottom: 18px;
+}
+
+.gameForm label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: 600;
+}
+
+.gameForm input,
+.gameForm select {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.gameForm input:focus,
+.gameForm select:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.gameForm input[aria-invalid="true"],
+.gameForm select[aria-invalid="true"] {
+  border-color: #ef4444;
+  background: #fff7f7;
+}
+
+.error {
+  margin: 6px 0 0;
+  color: #dc2626;
+  font-size: 14px;
+}
+
+.formActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.formActions button,
+.gameActions button {
+  border: none;
+  border-radius: 8px;
+  padding: 9px 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.formActions button[type="submit"] {
+  background: #166534;
+  color: white;
+}
+
+.formActions button[type="button"] {
+  background: #64748b;
+  color: white;
+}
+
+.gameGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.gameCard {
+  background: white;
+  padding: 22px;
+  border: 1px solid #dbe2ea;
+  border-radius: 14px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+}
+
+.gameCard h2 {
+  margin-top: 0;
+}
+
+.gameCard h2 a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.gameCard h2 a:hover {
+  text-decoration: underline;
+}
+
+.gameActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.gameActions button:first-child {
+  background: #2563eb;
+  color: white;
+}
+
+.gameActions button:last-child {
+  background: #dc2626;
+  color: white;
+}
+
+.gameDetail {
+  max-width: 700px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid #dbe2ea;
+}
+
+@media (max-width: 700px) {
+  .gameGrid {
+    grid-template-columns: 1fr;
+  }
+}
